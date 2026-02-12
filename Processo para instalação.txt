@@ -1,0 +1,180 @@
+🚀 INSTALAÇÃO (Primeira vez)
+1️⃣ Publicar o projeto
+
+No ambiente de desenvolvimento:
+
+dotnet publish -c Release -o publish
+
+
+Copiar a pasta publish para o servidor.
+
+2️⃣ Configurar arquivos de ambiente
+
+No servidor, ajustar:
+
+appsettings.json
+
+appsettings.Development.json (se aplicável)
+
+taxas-campanha.json (Recoopera)
+
+Arquivos Excel (quando usados localmente)
+
+⚠️ Verificar:
+
+Connection string
+
+Chave JWT
+
+Caminhos de arquivos
+
+URLs permitidas (CORS)
+
+3️⃣ Criar o serviço do Windows
+
+Executar como Administrador.
+
+Recoopera API
+sc create "Recoopera API" binPath= "C:\Sistemas\Recoopera\publish\Recoopera.exe"
+
+ArquivosWeb API
+sc create "ArquivosWenApi" binPath= "C:\Sistemas\ArquivosWeb\publish\ArquivoWeb.Api.exe"
+
+4️⃣ Iniciar os serviços
+sc start "Recoopera API"
+sc start "ArquivosWenApi"
+
+
+Ou via:
+
+services.msc
+
+5️⃣ Firewall (se necessário)
+
+Liberar portas usadas pelas APIs:
+
+Ex: 7000, 7001, etc.
+
+🔄 ATUALIZAÇÃO DO SISTEMA
+Fluxo padrão de atualização
+
+1️⃣ Parar o serviço
+
+sc stop "Recoopera API"
+sc stop "ArquivosWenApi"
+
+
+2️⃣ Backup da versão atual
+
+Copiar pasta /publish para /backup
+
+
+3️⃣ Substituir arquivos
+
+Copiar nova pasta publish
+
+Manter:
+
+appsettings.json
+
+arquivos .env
+
+arquivos Excel
+
+pastas de log
+
+4️⃣ Executar migrations (se houver)
+
+dotnet ef database update
+
+
+5️⃣ Iniciar novamente
+
+sc start "Recoopera API"
+sc start "ArquivosWenApi"
+
+🧪 Validação pós-atualização
+
+✅ Serviço em execução
+
+✅ Logs sem erro crítico
+
+✅ Endpoint /health ou /auth/login
+
+✅ Frontend carregando corretamente
+
+✅ Simulação / cálculo funcionando
+
+🛠️ MANUTENÇÃO
+🔍 Logs
+
+Diretório recomendado:
+
+C:\Sistemas\<Projeto>\logs\
+
+
+Verificar:
+
+Erros de autenticação
+
+Falha de conexão com banco
+
+Erros de leitura de Excel
+
+Exceções no motor de cálculo
+
+🔐 Segurança
+
+Rotacionar chave JWT periodicamente
+
+Proteger appsettings.json
+
+Restringir acesso à pasta do sistema
+
+Não versionar arquivos sensíveis
+
+🧹 Limpeza periódica
+
+Limpar logs antigos
+
+Remover builds antigos
+
+Validar espaço em disco
+
+🧯 Problemas comuns
+❌ Serviço não inicia
+
+Verificar:
+
+Caminho do .exe
+
+Permissões da pasta
+
+Porta em uso
+
+Logs da aplicação
+
+❌ Erro de banco
+
+Connection string inválida
+
+Usuário sem permissão
+
+Migration pendente
+
+❌ Frontend não carrega
+
+Build ausente no wwwroot
+
+Variável de ambiente incorreta
+
+CORS bloqueando requisição
+
+🔁 Comandos úteis
+sc query "Recoopera API"
+sc query "ArquivosWenApi"
+
+sc stop "Recoopera API"
+sc start "Recoopera API"
+
+sc delete "Recoopera API"
